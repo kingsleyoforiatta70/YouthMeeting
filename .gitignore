@@ -1,0 +1,14 @@
+# System & Editor
+.DS_Store
+Thumbs.db
+*.tmp
+*.bak
+.vscode/
+.idea/
+
+# Node
+node_modules/
+package-lock.json
+
+# Build outputs & caches
+*.log
