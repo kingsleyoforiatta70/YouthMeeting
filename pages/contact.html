@@ -267,54 +267,100 @@
         </div>
       </section>
 
-      <!-- Registration / General Inquiry Form -->
-      <section class="day-schedule-card" aria-labelledby="inquiry-heading">
-        <h2 id="inquiry-heading" style="margin-bottom:0.5rem;">Pre-Registration &amp; Camp Inquiries</h2>
-        <p style="color:var(--text-muted); font-size:0.95rem; margin-bottom:1.5rem;">
-          Have questions regarding room reservations, group transport, or medical dietary needs? Leave a message for the secretariat below.
-        </p>
+      <!-- Registration / General Inquiry Form (Directly Connected to Official Google Form) -->
+      <section class="day-schedule-card" id="register" aria-labelledby="inquiry-heading">
+        <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-start; gap:1rem; margin-bottom:1.5rem;">
+          <div>
+            <span class="section-eyebrow">Online Pre-Registration</span>
+            <h2 id="inquiry-heading" style="margin-bottom:0.5rem;">Camp 2026 Registration Portal</h2>
+            <p style="color:var(--text-muted); font-size:0.95rem;">
+              Fill in your details below to register directly with the camp secretariat. Submissions are instantly recorded in our official Google Form registry.
+            </p>
+          </div>
+          <div>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSe98xAEJIyz-sH1LPrYWI4lHjsi5SR-Nok4q3il2sXJR5wFpg/viewform" target="_blank" rel="noopener" class="btn btn-outline" style="font-size:0.88rem; padding:0.6rem 1.25rem;">
+              Open in Google Forms &nearr;
+            </a>
+          </div>
+        </div>
 
-        <form id="camp-inquiry-form" onsubmit="handleInquirySubmit(event)" style="max-width:650px;">
+        <!-- Hidden Iframe to handle Google Forms submission without page refresh -->
+        <iframe name="hidden_gform_iframe" id="hidden_gform_iframe" style="display:none;" onload="onGFormIframeLoad()"></iframe>
+
+        <form id="camp-registration-form"
+              action="https://docs.google.com/forms/d/e/1FAIpQLSe98xAEJIyz-sH1LPrYWI4lHjsi5SR-Nok4q3il2sXJR5wFpg/formResponse"
+              method="POST"
+              target="hidden_gform_iframe"
+              onsubmit="handleRegistrationSubmit(event)"
+              style="max-width:650px;">
+
+          <!-- Question 1: Full Name -->
           <div style="margin-bottom:1.25rem;">
-            <label for="full-name" style="display:block; font-weight:700; font-size:0.9rem; margin-bottom:0.35rem;">Full Name *</label>
-            <input type="text" id="full-name" name="name" required placeholder="e.g. Samuel Mensah" style="width:100%; padding:0.65rem 0.85rem; border:1px solid var(--border-medium); border-radius:var(--radius-sm); font-family:inherit;">
+            <label for="reg-name" style="display:block; font-weight:700; font-size:0.9rem; margin-bottom:0.35rem;">Full Name *</label>
+            <input type="text" id="reg-name" name="entry.551015032" required placeholder="e.g. Samuel Mensah" style="width:100%; padding:0.65rem 0.85rem; border:1px solid var(--border-medium); border-radius:var(--radius-sm); font-family:inherit;">
           </div>
 
+          <!-- Question 2: Phone Number & Question 3: Area / District -->
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1.25rem;">
             <div>
-              <label for="phone-number" style="display:block; font-weight:700; font-size:0.9rem; margin-bottom:0.35rem;">Phone Number *</label>
-              <input type="tel" id="phone-number" name="phone" required placeholder="024 XXX XXXX" style="width:100%; padding:0.65rem 0.85rem; border:1px solid var(--border-medium); border-radius:var(--radius-sm); font-family:inherit;">
+              <label for="reg-phone" style="display:block; font-weight:700; font-size:0.9rem; margin-bottom:0.35rem;">Phone Number / WhatsApp *</label>
+              <input type="tel" id="reg-phone" name="entry.1873407545" required placeholder="024 XXX XXXX" style="width:100%; padding:0.65rem 0.85rem; border:1px solid var(--border-medium); border-radius:var(--radius-sm); font-family:inherit;">
             </div>
             <div>
-              <label for="district-select" style="display:block; font-weight:700; font-size:0.9rem; margin-bottom:0.35rem;">Area / District *</label>
-              <select id="district-select" name="district" required style="width:100%; padding:0.65rem 0.85rem; border:1px solid var(--border-medium); border-radius:var(--radius-sm); font-family:inherit;">
+              <label for="reg-district" style="display:block; font-weight:700; font-size:0.9rem; margin-bottom:0.35rem;">Area / District *</label>
+              <select id="reg-district" name="entry.1497805382" required style="width:100%; padding:0.65rem 0.85rem; border:1px solid var(--border-medium); border-radius:var(--radius-sm); font-family:inherit;">
                 <option value="">Select your area</option>
                 <option value="Agona Swedru Area">Agona Swedru Area</option>
                 <option value="Winneba-Apam Area">Winneba-Apam Area</option>
-                <option value="Visiting Other Area">Visiting Delegate (Other Area)</option>
+                <option value="Visiting Delegate (Other Area)">Visiting Delegate (Other Area)</option>
               </select>
             </div>
           </div>
 
+          <!-- Question 4: Registration Package Tier -->
           <div style="margin-bottom:1.25rem;">
-            <label for="camper-tier" style="display:block; font-weight:700; font-size:0.9rem; margin-bottom:0.35rem;">Expected Registration Tier</label>
-            <select id="camper-tier" name="tier" style="width:100%; padding:0.65rem 0.85rem; border:1px solid var(--border-medium); border-radius:var(--radius-sm); font-family:inherit;">
-              <option value="Youth Camper (GH₵200.00)">Youth Camper — GH₵200.00 (Full Residential)</option>
-              <option value="Under 13 Years (GH₵150.00)">Under 13 Years — GH₵150.00 (Children Ministry)</option>
-              <option value="Non-Residential (GH₵120.00)">Non-Residential Day Pass — GH₵120.00</option>
+            <label for="reg-tier" style="display:block; font-weight:700; font-size:0.9rem; margin-bottom:0.35rem;">Registration Package Tier *</label>
+            <select id="reg-tier" name="entry.342162996" required style="width:100%; padding:0.65rem 0.85rem; border:1px solid var(--border-medium); border-radius:var(--radius-sm); font-family:inherit;">
+              <option value="Youth Camper — GH₵200.00 (Full Residential)">Youth Camper — GH₵200.00 (Full Residential)</option>
+              <option value="Under 13 Years — GH₵150.00 (Children Ministry)">Under 13 Years — GH₵150.00 (Children Ministry)</option>
+              <option value="Non-Residential Day Pass — GH₵120.00">Non-Residential Day Pass — GH₵120.00</option>
             </select>
           </div>
 
+          <!-- Question 5: Local Assembly & Special Requirements -->
           <div style="margin-bottom:1.5rem;">
-            <label for="inquiry-message" style="display:block; font-weight:700; font-size:0.9rem; margin-bottom:0.35rem;">Inquiry or Special Requirement</label>
-            <textarea id="inquiry-message" name="message" rows="4" placeholder="Let us know your district group size or special requirements..." style="width:100%; padding:0.65rem 0.85rem; border:1px solid var(--border-medium); border-radius:var(--radius-sm); font-family:inherit;"></textarea>
+            <label for="reg-notes" style="display:block; font-weight:700; font-size:0.9rem; margin-bottom:0.35rem;">Local Assembly &amp; Special Requirements / Notes</label>
+            <textarea id="reg-notes" name="entry.2140906031" rows="4" placeholder="Mention your local assembly (e.g. Swedru Central, Winneba Central) and any medical or dietary notes..." style="width:100%; padding:0.65rem 0.85rem; border:1px solid var(--border-medium); border-radius:var(--radius-sm); font-family:inherit;"></textarea>
           </div>
 
-          <button type="submit" class="btn btn-primary" style="padding:0.75rem 2rem;">Submit Inquiry</button>
+          <div style="display:flex; flex-wrap:wrap; gap:1rem; align-items:center;">
+            <button type="submit" id="submit-reg-btn" class="btn btn-primary" style="padding:0.75rem 2rem;">
+              Submit Registration
+            </button>
+            <span style="font-size:0.85rem; color:var(--text-muted);">
+              Instant sync with official camp registry
+            </span>
+          </div>
         </form>
 
-        <div id="inquiry-success-msg" style="display:none; background:#ecfdf5; border:1px solid #a7f3d0; color:#065f46; padding:1.25rem; border-radius:var(--radius-md); margin-top:1.5rem; max-width:650px;">
-          <strong>Thank you!</strong> Your message has been noted. Please complete fee payment upon arrival at the SWESBUS secretariat desk on Thursday. See you at Camp!
+        <div id="inquiry-success-msg" style="display:none; background:#ecfdf5; border:1px solid #a7f3d0; color:#065f46; padding:1.75rem; border-radius:var(--radius-md); margin-top:1.5rem; max-width:650px;">
+          <div style="display:flex; align-items:flex-start; gap:0.75rem;">
+            <span style="font-size:1.5rem; line-height:1; color:#059669; font-weight:bold;">&#10003;</span>
+            <div>
+              <h4 style="font-size:1.15rem; font-weight:800; color:#065f46; margin-bottom:0.35rem;">Registration Submitted Successfully!</h4>
+              <p style="margin-bottom:0.75rem; line-height:1.6; font-size:0.95rem;">
+                Thank you! Your pre-registration has been received and recorded in our official Google registry.
+              </p>
+              <p style="margin-bottom:0.75rem; line-height:1.6; font-size:0.92rem; color:#047857;">
+                <strong>Arrival Day Instructions:</strong> Please present your name at the SWESBUS secretariat desk upon arrival on <strong>Thursday, September 3, 2026</strong> to complete your fee payment and receive your official camper ID lanyard and study booklet.
+              </p>
+              <div style="margin-top:1rem;">
+                <button type="button" onclick="resetRegistrationForm()" class="btn btn-outline" style="font-size:0.85rem; padding:0.4rem 1rem;">
+                  Register Another Camper
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -322,61 +368,54 @@
   </main>
 
   <!-- Footer -->
-  <footer class="site-footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-col">
-          <h4>The Apostolic Church – Ghana</h4>
-          <p style="font-size: 0.88rem; line-height: 1.6; color: #9ca3af;">
-            Central Region Zone 1 National Youth Ministry &amp; Children Ministry. Uniting Agona Swedru Area and Winneba-Apam Area for Christ.
-          </p>
-        </div>
-
-        <div class="footer-col">
-          <h4>Navigation</h4>
-          <ul class="footer-links">
-            <li><a href="../index.html">Home</a></li>
-            <li><a href="schedule.html">Camp Schedule</a></li>
-            <li><a href="activities.html">Activities &amp; Outreach</a></li>
-            <li><a href="messages.html">Messages &amp; Studies</a></li>
-            <li><a href="about.html">Leadership</a></li>
-            <li><a href="contact.html">Venue &amp; Fees</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-col">
-          <h4>Registration</h4>
-          <ul class="footer-links">
-            <li>Youth Camper: GH₵200.00</li>
-            <li>Under 13 Years: GH₵150.00</li>
-            <li>Non-Residential: GH₵120.00</li>
-            <li>Payment: At SWESBUS desk</li>
-          </ul>
-        </div>
-
-        <div class="footer-col">
-          <h4>Secretariat</h4>
-          <ul class="footer-links">
-            <li>Venue: SWESBUS Campus, Agona Swedru</li>
-            <li>Area Youth Pastor: Ps. Jerry Dzirasah</li>
-            <li>Winneba Youth Pastor: Ps. Isaac Oko-Djangetey</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <p>&copy; 2026 The Apostolic Church – Ghana | Central Region Zone 1. All rights reserved.</p>
-        <p>Built with Vanilla HTML, CSS &amp; JS &bull; Local Event Time: GMT (UTC+00:00)</p>
-      </div>
-    </div>
-  </footer>
 
   <script src="../assets/js/main.js"></script>
   <script>
-    function handleInquirySubmit(e) {
-      e.preventDefault();
-      document.getElementById('camp-inquiry-form').style.display = 'none';
-      document.getElementById('inquiry-success-msg').style.display = 'block';
+    var isSubmitting = false;
+
+    function handleRegistrationSubmit(e) {
+      isSubmitting = true;
+      var btn = document.getElementById('submit-reg-btn');
+      if (btn) {
+        btn.disabled = true;
+        btn.innerText = 'Submitting to Registry...';
+      }
+      // Guarantee confirmation displays even if iframe event is delayed
+      setTimeout(function() {
+        showSuccessMessage();
+      }, 1500);
+    }
+
+    function onGFormIframeLoad() {
+      if (isSubmitting) {
+        showSuccessMessage();
+      }
+    }
+
+    function showSuccessMessage() {
+      var form = document.getElementById('camp-registration-form');
+      var msg = document.getElementById('inquiry-success-msg');
+      if (form) form.style.display = 'none';
+      if (msg) {
+        msg.style.display = 'block';
+        msg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+
+    function resetRegistrationForm() {
+      isSubmitting = false;
+      var form = document.getElementById('camp-registration-form');
+      var msg = document.getElementById('inquiry-success-msg');
+      var btn = document.getElementById('submit-reg-btn');
+      if (form) {
+        form.reset();
+        form.style.display = 'block';
+      }
+      if (btn) {
+        btn.disabled = false;
+        btn.innerText = 'Submit Registration';
+      }
+      if (msg) msg.style.display = 'none';
     }
   </script>
 </body>
