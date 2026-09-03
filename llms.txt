@@ -12,7 +12,8 @@
 
 ## Site Pages
 - Home & Live Hub (https://tacyouthcamp.org/): Live program updates, schedule reveal engine, countdown, and camp announcements.
-- Camp Schedule (https://tacyouthcamp.org/pages/schedule.html): Full 4-day timetable, hostel routine, daily order of services, and dress code guidelines.
+- Camp Schedule (https://tacyouthcamp.org/pages/schedule.html): Full 4-day timetable...
+- Action Groups (https://tacyouthcamp.org/pages/action-groups.html): Complete breakout study curriculum: Study 1, Study 2, and Study 3 with memory verses and discussions. Full 4-day timetable, hostel routine, daily order of services, and dress code guidelines.
 - Camp Activities & Outreach (https://tacyouthcamp.org/pages/activities.html): Outreach at Oteipirow, Career Symposium, Inter-district sports, and Bonfire night.
 - Pastoral Messages & Studies (https://tacyouthcamp.org/pages/messages.html): Official welcome message from Ps. Enoch Bortey Offei, Superintendent Aps. Andrews Nortey's charge, Apostle W.S. Dantiar retirement tribute, and Bible Study Outlines 1, 2, and 3.
 - Leadership Directory (https://tacyouthcamp.org/pages/about.html): Leadership directory and theme vision.
